@@ -5,6 +5,7 @@ Se usan en la sección 2 (WikiText-103), en el entrenamiento de SGNS (sección 4
 y en AG News (sección 6): el MISMO normalizador y tokenizador en todas partes.
 """
 import html
+import json
 import re
 import unicodedata
 from array import array
@@ -15,6 +16,7 @@ import numpy as np
 PAD, UNK = "<pad>", "<unk>"
 PAD_ID, UNK_ID = 0, 1
 
+# Estructura de WikiText
 _ARTICLE_RE = re.compile(r"^= [^=].*[^=] =$")  # solo títulos de nivel 1
 
 
@@ -29,13 +31,15 @@ def is_heading(line: str) -> bool:
     return s.startswith("=") and s.endswith("=") and len(s) > 2
 
 # Normalización y tokenización
-_AT_RE = re.compile(r" @([-,.])@ ") 
+_AT_RE = re.compile(r" @([-,.])@ ")  
 _QUOTES = str.maketrans({"’": "'", "‘": "'", "“": '"', "”": '"'})
 
+_CLITIC = r"(?:s|t|re|ve|ll|d|m)\b"
 _TOKEN_RE = re.compile(
-    r"[^\W_]+(?:[-.,][^\W_]+)*"      
-    r"|'(?:s|t|re|ve|ll|d|m)\b"      
-    r"|[^\w\s]"                     
+    r"\d+(?::\d+)+"                                    
+    r"|[^\W_]+(?:(?:[-.,]|'(?!" + _CLITIC + r"))[^\W_]+)*"  
+    r"|'" + _CLITIC +                                  
+    r"|[^\w\s]"                                        
 )
 
 
@@ -118,6 +122,20 @@ class Vocab:
     def encode(self, toks, drop_unk=False):
         ids = [self.stoi.get(t, UNK_ID) for t in toks]
         return [i for i in ids if i != UNK_ID] if drop_unk else ids
+
+
+def load_vocab(path) -> "Vocab":
+    """Reconstruye el Vocab guardado en cache/vocab.json por el notebook de la sección 2."""
+    d = json.load(open(path))
+    v = object.__new__(Vocab)
+    v.min_count = d["min_count"]
+    v.itos = d["itos"]
+    v.stoi = {w: i for i, w in enumerate(v.itos)}
+    v.counts = np.array(d["counts"], dtype=np.int64)
+    v.in_vocab_total = int(v.counts[2:].sum())
+    v.total_tokens = v.in_vocab_total + int(v.counts[UNK_ID])
+    v.unk_pct = 100 * v.counts[UNK_ID] / v.total_tokens
+    return v
 
 
 def encode_corpus(paragraphs, vocab: Vocab, drop_unk: bool = True):

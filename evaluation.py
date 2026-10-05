@@ -133,6 +133,21 @@ def load_kv(path, name: str = ""):
     return EmbeddingSpace.from_keyed_vectors(KeyedVectors.load(str(path)), name=name)
 
 
+def load_sgns(cache="cache", run=None, name: str = "SGNS"):
+    """
+    SGNS propio de A: cache/sgns_best.kv, o el run guardado por sgns.save_run (cache/runs/<run>_W_in.npy,
+    filas alineadas con cache/vocab.json). Devuelve None (con aviso) si todavía no existe.
+    """
+    cache = Path(cache)
+    if (cache / "sgns_best.kv").exists():
+        return load_kv(cache / "sgns_best.kv", name=name)
+    if run and (cache / "runs" / f"{run}_W_in.npy").exists():
+        itos = json.load(open(cache / "vocab.json"))["itos"]
+        return EmbeddingSpace.from_itos(np.load(cache / "runs" / f"{run}_W_in.npy"), itos, name=name)
+    print("AVISO: no hay SGNS propio guardado todavía; se continúa sin él.")
+    return None
+
+
 def shared_vocabulary(spaces, n: int = 30000, order_by=None):
     """
     Las n palabras más frecuentes presentes en TODOS los espacios.

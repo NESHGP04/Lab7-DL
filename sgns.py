@@ -14,7 +14,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from scipy.stats import spearmanr
 
-import nlp_utils as U
+import utils as U
 
 CONTROL_WORDS = ("king", "france", "computer", "good", "january", "run")
 

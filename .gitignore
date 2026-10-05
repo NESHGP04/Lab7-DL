@@ -1,2 +1,4 @@
 cache/train_ids.npy
 cache/gensim_w2v.kv*
+cache/runs/d300_c100_W_in.npy
+cache/runs/d300_c100_W_out.npy

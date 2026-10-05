@@ -1,0 +1,30 @@
+{
+ "modelo": "GloVe-100 (glove-wiki-gigaword-100), preentrenado por Pennington, Socher y Manning (2014); usado sin entrenamiento adicional",
+ "fuente": "Pennington et al. (2014), GloVe: Global Vectors for Word Representation, EMNLP; secciones 4.2 y 4.6 (https://nlp.stanford.edu/pubs/glove.pdf)",
+ "corpus": "Wikipedia 2014 (1.6 B tokens) + Gigaword 5 (4.3 B tokens)",
+ "tokens_corpus": 6000000000,
+ "vocabulario": 400000,
+ "dim": 100,
+ "ventana": "simétrica de 10 palabras (ponderación 1/d)",
+ "entrenamiento": {
+  "optimizador": "AdaGrad",
+  "lr_inicial": 0.05,
+  "x_max": 100,
+  "alpha": 0.75,
+  "iteraciones_dim_menor_300": 50,
+  "iteraciones_dim_mayor_igual_300": 100
+ },
+ "hardware_reportado": "máquina dual Intel Xeon E5-2658 a 2.1 GHz (32 núcleos); sin GPU mencionada",
+ "tiempo_reportado": {
+  "matriz_cooccurrencia_min": 85,
+  "matriz_cooccurrencia_hilos": 1,
+  "iteracion_d300_min": 14,
+  "iteracion_d300_nucleos": 32,
+  "total_d100": "no reportado"
+ },
+ "estimacion_propia_cota_superior_h": {
+  "valor": 13.1,
+  "nota": "NO es un dato de los autores: 50 iteraciones x 14 min (costo de d=300) + 85 min de matriz"
+ },
+ "memoria_gpu": "no aplica / no reportada"
+}

@@ -1,5 +1,809 @@
 {
- "gensim": {
+ "SGNS (d300)": {
+  "procedencia": {
+   "modelo": "SGNS propio (PyTorch, desde cero)",
+   "run": "d300_c100",
+   "matriz": "d300_c100_W_in.npy",
+   "config": {
+    "name": "d300_c100",
+    "dim": 300,
+    "window": 5,
+    "neg": 5,
+    "subsample_t": 0.0001,
+    "epochs": 3,
+    "batch_size": 4096,
+    "lr": 0.003,
+    "min_lr_frac": 0.01,
+    "corpus_frac": 1.0,
+    "chunk_tokens": 2000000,
+    "seed": 42
+   }
+  },
+  "vocab": 109644,
+  "dim": 300,
+  "vocab_compartido": 30000,
+  "preguntas_evaluadas": 11833,
+  "preguntas_total": 19544,
+  "cobertura": 0.6054543593941875,
+  "add": {
+   "semantic": 0.425531914893617,
+   "syntactic": 0.4999394746398741,
+   "total": 0.47747823882362883
+  },
+  "mul": {
+   "semantic": 0.4174132138857783,
+   "syntactic": 0.4881975547754509,
+   "total": 0.4668300515507479
+  },
+  "sin_exclusion": {
+   "3CosAdd con exclusi\u00f3n": 0.47747823882362883,
+   "3CosAdd sin exclusi\u00f3n": 0.0032113580664244064,
+   "3CosMul con exclusi\u00f3n": 0.4668300515507479,
+   "3CosMul sin exclusi\u00f3n": 0.04014197583030508
+  },
+  "por_categoria": [
+   {
+    "category": "capital-common-countries",
+    "n_total": 506,
+    "n_eval": 380,
+    "coverage": 0.7509881422924901,
+    "acc_add": 0.6131578947368421,
+    "acc_mul": 0.6131578947368421
+   },
+   {
+    "category": "capital-world",
+    "n_total": 4524,
+    "n_eval": 1046,
+    "coverage": 0.23121131741821396,
+    "acc_add": 0.5038240917782026,
+    "acc_mul": 0.4847036328871893
+   },
+   {
+    "category": "currency",
+    "n_total": 866,
+    "n_eval": 54,
+    "coverage": 0.06235565819861432,
+    "acc_add": 0.0,
+    "acc_mul": 0.0
+   },
+   {
+    "category": "city-in-state",
+    "n_total": 2467,
+    "n_eval": 1750,
+    "coverage": 0.7093635995135793,
+    "acc_add": 0.3102857142857143,
+    "acc_mul": 0.304
+   },
+   {
+    "category": "family",
+    "n_total": 506,
+    "n_eval": 342,
+    "coverage": 0.6758893280632411,
+    "acc_add": 0.6345029239766082,
+    "acc_mul": 0.6403508771929824
+   },
+   {
+    "category": "gram1-adjective-to-adverb",
+    "n_total": 992,
+    "n_eval": 812,
+    "coverage": 0.8185483870967742,
+    "acc_add": 0.12807881773399016,
+    "acc_mul": 0.12192118226600986
+   },
+   {
+    "category": "gram2-opposite",
+    "n_total": 812,
+    "n_eval": 272,
+    "coverage": 0.33497536945812806,
+    "acc_add": 0.125,
+    "acc_mul": 0.10294117647058823
+   },
+   {
+    "category": "gram3-comparative",
+    "n_total": 1332,
+    "n_eval": 1332,
+    "coverage": 1.0,
+    "acc_add": 0.545045045045045,
+    "acc_mul": 0.5465465465465466
+   },
+   {
+    "category": "gram4-superlative",
+    "n_total": 1122,
+    "n_eval": 702,
+    "coverage": 0.6256684491978609,
+    "acc_add": 0.3076923076923077,
+    "acc_mul": 0.3333333333333333
+   },
+   {
+    "category": "gram5-present-participle",
+    "n_total": 1056,
+    "n_eval": 870,
+    "coverage": 0.8238636363636364,
+    "acc_add": 0.5114942528735632,
+    "acc_mul": 0.4862068965517241
+   },
+   {
+    "category": "gram6-nationality-adjective",
+    "n_total": 1599,
+    "n_eval": 1299,
+    "coverage": 0.8123827392120075,
+    "acc_add": 0.8514241724403387,
+    "acc_mul": 0.8475750577367206
+   },
+   {
+    "category": "gram7-past-tense",
+    "n_total": 1560,
+    "n_eval": 1332,
+    "coverage": 0.8538461538461538,
+    "acc_add": 0.6073573573573574,
+    "acc_mul": 0.5848348348348348
+   },
+   {
+    "category": "gram8-plural",
+    "n_total": 1332,
+    "n_eval": 992,
+    "coverage": 0.7447447447447447,
+    "acc_add": 0.4627016129032258,
+    "acc_mul": 0.4102822580645161
+   },
+   {
+    "category": "gram9-plural-verbs",
+    "n_total": 870,
+    "n_eval": 650,
+    "coverage": 0.7471264367816092,
+    "acc_add": 0.3553846153846154,
+    "acc_mul": 0.36
+   }
+  ],
+  "paralelismo_medio": 0.149323044610875,
+  "paralelismo_azar": 0.0006771038627318506,
+  "paralelismo_por_categoria": [
+   {
+    "category": "capital-common-countries",
+    "n_pairs": 20,
+    "mean_cos_pairs": 0.2155621349811554,
+    "mean_cos_questions": 0.2155621200799942,
+    "random_baseline": -0.008839882910251617
+   },
+   {
+    "category": "capital-world",
+    "n_pairs": 56,
+    "mean_cos_pairs": 0.16125072538852692,
+    "mean_cos_questions": 0.16179081797599792,
+    "random_baseline": 0.0001049128477461636
+   },
+   {
+    "category": "currency",
+    "n_pairs": 8,
+    "mean_cos_pairs": 0.183629110455513,
+    "mean_cos_questions": 0.16713155806064606,
+    "random_baseline": 0.009738615714013577
+   },
+   {
+    "category": "city-in-state",
+    "n_pairs": 57,
+    "mean_cos_pairs": 0.13494715094566345,
+    "mean_cos_questions": 0.11578002572059631,
+    "random_baseline": -0.0008706795633770525
+   },
+   {
+    "category": "family",
+    "n_pairs": 19,
+    "mean_cos_pairs": 0.16633887588977814,
+    "mean_cos_questions": 0.16633886098861694,
+    "random_baseline": 0.0029860101640224457
+   },
+   {
+    "category": "gram1-adjective-to-adverb",
+    "n_pairs": 29,
+    "mean_cos_pairs": 0.06508772075176239,
+    "mean_cos_questions": 0.06508772075176239,
+    "random_baseline": 0.002562546404078603
+   },
+   {
+    "category": "gram2-opposite",
+    "n_pairs": 17,
+    "mean_cos_pairs": 0.05883323401212692,
+    "mean_cos_questions": 0.05883321911096573,
+    "random_baseline": 0.008281546644866467
+   },
+   {
+    "category": "gram3-comparative",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.1875963807106018,
+    "mean_cos_questions": 0.187596395611763,
+    "random_baseline": -0.004983602557331324
+   },
+   {
+    "category": "gram4-superlative",
+    "n_pairs": 27,
+    "mean_cos_pairs": 0.17974171042442322,
+    "mean_cos_questions": 0.17974169552326202,
+    "random_baseline": -0.005470463540405035
+   },
+   {
+    "category": "gram5-present-participle",
+    "n_pairs": 30,
+    "mean_cos_pairs": 0.09972156584262848,
+    "mean_cos_questions": 0.09972157329320908,
+    "random_baseline": 0.001939508249051869
+   },
+   {
+    "category": "gram6-nationality-adjective",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.2980973422527313,
+    "mean_cos_questions": 0.2977372109889984,
+    "random_baseline": -0.00027171411784365773
+   },
+   {
+    "category": "gram7-past-tense",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.11913102865219116,
+    "mean_cos_questions": 0.11913102865219116,
+    "random_baseline": 0.0030624831560999155
+   },
+   {
+    "category": "gram8-plural",
+    "n_pairs": 32,
+    "mean_cos_pairs": 0.08377592265605927,
+    "mean_cos_questions": 0.08377591520547867,
+    "random_baseline": -0.0010314199607819319
+   },
+   {
+    "category": "gram9-plural-verbs",
+    "n_pairs": 26,
+    "mean_cos_pairs": 0.13680972158908844,
+    "mean_cos_questions": 0.13680972158908844,
+    "random_baseline": 0.0022715935483574867
+   }
+  ],
+  "tsne_pureza": 0.8480392156862745,
+  "tsne_silueta": 0.14919856190681458,
+  "propias_top1": 16,
+  "propias_total": 23
+ },
+ "SGNS (d100)": {
+  "procedencia": {
+   "modelo": "SGNS propio (PyTorch, desde cero)",
+   "run": "d100_c100",
+   "matriz": "d100_c100_W_in.npy",
+   "config": {
+    "name": "d100_c100",
+    "dim": 100,
+    "window": 5,
+    "neg": 5,
+    "subsample_t": 0.0001,
+    "epochs": 3,
+    "batch_size": 4096,
+    "lr": 0.003,
+    "min_lr_frac": 0.01,
+    "corpus_frac": 1.0,
+    "chunk_tokens": 2000000,
+    "seed": 42
+   }
+  },
+  "vocab": 109644,
+  "dim": 100,
+  "vocab_compartido": 30000,
+  "preguntas_evaluadas": 11833,
+  "preguntas_total": 19544,
+  "cobertura": 0.6054543593941875,
+  "add": {
+   "semantic": 0.30599104143337064,
+   "syntactic": 0.4489771214138724,
+   "total": 0.4058142482886842
+  },
+  "mul": {
+   "semantic": 0.28611422172452405,
+   "syntactic": 0.4135092603800993,
+   "total": 0.3750528183892504
+  },
+  "sin_exclusion": {
+   "3CosAdd con exclusi\u00f3n": 0.4058142482886842,
+   "3CosAdd sin exclusi\u00f3n": 0.07952336685540438,
+   "3CosMul con exclusi\u00f3n": 0.3750528183892504,
+   "3CosMul sin exclusi\u00f3n": 0.1837234851685963
+  },
+  "por_categoria": [
+   {
+    "category": "capital-common-countries",
+    "n_total": 506,
+    "n_eval": 380,
+    "coverage": 0.7509881422924901,
+    "acc_add": 0.49736842105263157,
+    "acc_mul": 0.4763157894736842
+   },
+   {
+    "category": "capital-world",
+    "n_total": 4524,
+    "n_eval": 1046,
+    "coverage": 0.23121131741821396,
+    "acc_add": 0.35372848948374763,
+    "acc_mul": 0.32887189292543023
+   },
+   {
+    "category": "currency",
+    "n_total": 866,
+    "n_eval": 54,
+    "coverage": 0.06235565819861432,
+    "acc_add": 0.018518518518518517,
+    "acc_mul": 0.037037037037037035
+   },
+   {
+    "category": "city-in-state",
+    "n_total": 2467,
+    "n_eval": 1750,
+    "coverage": 0.7093635995135793,
+    "acc_add": 0.1977142857142857,
+    "acc_mul": 0.18628571428571428
+   },
+   {
+    "category": "family",
+    "n_total": 506,
+    "n_eval": 342,
+    "coverage": 0.6758893280632411,
+    "acc_add": 0.5467836257309941,
+    "acc_mul": 0.49415204678362573
+   },
+   {
+    "category": "gram1-adjective-to-adverb",
+    "n_total": 992,
+    "n_eval": 812,
+    "coverage": 0.8185483870967742,
+    "acc_add": 0.11822660098522167,
+    "acc_mul": 0.0960591133004926
+   },
+   {
+    "category": "gram2-opposite",
+    "n_total": 812,
+    "n_eval": 272,
+    "coverage": 0.33497536945812806,
+    "acc_add": 0.13970588235294118,
+    "acc_mul": 0.11397058823529412
+   },
+   {
+    "category": "gram3-comparative",
+    "n_total": 1332,
+    "n_eval": 1332,
+    "coverage": 1.0,
+    "acc_add": 0.496996996996997,
+    "acc_mul": 0.4767267267267267
+   },
+   {
+    "category": "gram4-superlative",
+    "n_total": 1122,
+    "n_eval": 702,
+    "coverage": 0.6256684491978609,
+    "acc_add": 0.292022792022792,
+    "acc_mul": 0.28062678062678065
+   },
+   {
+    "category": "gram5-present-participle",
+    "n_total": 1056,
+    "n_eval": 870,
+    "coverage": 0.8238636363636364,
+    "acc_add": 0.4298850574712644,
+    "acc_mul": 0.34022988505747126
+   },
+   {
+    "category": "gram6-nationality-adjective",
+    "n_total": 1599,
+    "n_eval": 1299,
+    "coverage": 0.8123827392120075,
+    "acc_add": 0.7705927636643572,
+    "acc_mul": 0.7444187836797537
+   },
+   {
+    "category": "gram7-past-tense",
+    "n_total": 1560,
+    "n_eval": 1332,
+    "coverage": 0.8538461538461538,
+    "acc_add": 0.5960960960960962,
+    "acc_mul": 0.5367867867867868
+   },
+   {
+    "category": "gram8-plural",
+    "n_total": 1332,
+    "n_eval": 992,
+    "coverage": 0.7447447447447447,
+    "acc_add": 0.3639112903225806,
+    "acc_mul": 0.31350806451612906
+   },
+   {
+    "category": "gram9-plural-verbs",
+    "n_total": 870,
+    "n_eval": 650,
+    "coverage": 0.7471264367816092,
+    "acc_add": 0.27384615384615385,
+    "acc_mul": 0.28615384615384615
+   }
+  ],
+  "paralelismo_medio": 0.2465540213244302,
+  "paralelismo_azar": 0.0006997416930971667,
+  "paralelismo_por_categoria": [
+   {
+    "category": "capital-common-countries",
+    "n_pairs": 20,
+    "mean_cos_pairs": 0.33457842469215393,
+    "mean_cos_questions": 0.3345784544944763,
+    "random_baseline": -0.018664026632905006
+   },
+   {
+    "category": "capital-world",
+    "n_pairs": 56,
+    "mean_cos_pairs": 0.275197833776474,
+    "mean_cos_questions": 0.275050550699234,
+    "random_baseline": -0.0027619139291346073
+   },
+   {
+    "category": "currency",
+    "n_pairs": 8,
+    "mean_cos_pairs": 0.24404631555080414,
+    "mean_cos_questions": 0.22889436781406403,
+    "random_baseline": 0.00518589373677969
+   },
+   {
+    "category": "city-in-state",
+    "n_pairs": 57,
+    "mean_cos_pairs": 0.21366429328918457,
+    "mean_cos_questions": 0.19770704209804535,
+    "random_baseline": -0.0009332754998467863
+   },
+   {
+    "category": "family",
+    "n_pairs": 19,
+    "mean_cos_pairs": 0.264849454164505,
+    "mean_cos_questions": 0.2648494243621826,
+    "random_baseline": 0.015158681198954582
+   },
+   {
+    "category": "gram1-adjective-to-adverb",
+    "n_pairs": 29,
+    "mean_cos_pairs": 0.12649574875831604,
+    "mean_cos_questions": 0.12649573385715485,
+    "random_baseline": 0.0033397767692804337
+   },
+   {
+    "category": "gram2-opposite",
+    "n_pairs": 17,
+    "mean_cos_pairs": 0.10305455327033997,
+    "mean_cos_questions": 0.10305455327033997,
+    "random_baseline": 0.0104453070089221
+   },
+   {
+    "category": "gram3-comparative",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.301962286233902,
+    "mean_cos_questions": 0.30196231603622437,
+    "random_baseline": -0.005004762671887875
+   },
+   {
+    "category": "gram4-superlative",
+    "n_pairs": 27,
+    "mean_cos_pairs": 0.29012516140937805,
+    "mean_cos_questions": 0.29012519121170044,
+    "random_baseline": -0.007024281192570925
+   },
+   {
+    "category": "gram5-present-participle",
+    "n_pairs": 30,
+    "mean_cos_pairs": 0.1710790991783142,
+    "mean_cos_questions": 0.17107908427715302,
+    "random_baseline": 0.0029225931502878666
+   },
+   {
+    "category": "gram6-nationality-adjective",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.48784685134887695,
+    "mean_cos_questions": 0.4872990548610687,
+    "random_baseline": 6.308569572865963e-05
+   },
+   {
+    "category": "gram7-past-tense",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.21603752672672272,
+    "mean_cos_questions": 0.2160375565290451,
+    "random_baseline": 0.0043293749913573265
+   },
+   {
+    "category": "gram8-plural",
+    "n_pairs": 32,
+    "mean_cos_pairs": 0.17321379482746124,
+    "mean_cos_questions": 0.17321380972862244,
+    "random_baseline": 0.0004005239752586931
+   },
+   {
+    "category": "gram9-plural-verbs",
+    "n_pairs": 26,
+    "mean_cos_pairs": 0.2496049553155899,
+    "mean_cos_questions": 0.2496049553155899,
+    "random_baseline": 0.002339407103136182
+   }
+  ],
+  "tsne_pureza": 0.8563725490196078,
+  "tsne_silueta": 0.21641536056995392,
+  "propias_top1": 16,
+  "propias_total": 23
+ },
+ "gensim (d300, 3 ep)": {
+  "procedencia": {
+   "modelo": "Word2Vec de gensim (skip-gram, negative sampling)",
+   "run": "gensim_d300_e3",
+   "matriz": "cache/gensim_d300_e3.kv",
+   "config": {
+    "vector_size": 300,
+    "epochs": 3,
+    "window": 5,
+    "negative": 5,
+    "sample": 0.0001,
+    "alpha": 0.025,
+    "min_alpha": 0.0001,
+    "min_count": 1,
+    "sg": 1,
+    "seed": 42
+   }
+  },
+  "vocab": 109644,
+  "dim": 300,
+  "vocab_compartido": 30000,
+  "preguntas_evaluadas": 11833,
+  "preguntas_total": 19544,
+  "cobertura": 0.6054543593941875,
+  "add": {
+   "semantic": 0.23684210526315788,
+   "syntactic": 0.447524512770851,
+   "total": 0.3839263077833178
+  },
+  "mul": {
+   "semantic": 0.24804031354983203,
+   "syntactic": 0.4430456361215349,
+   "total": 0.3841798360517198
+  },
+  "sin_exclusion": {
+   "3CosAdd con exclusi\u00f3n": 0.3839263077833178,
+   "3CosAdd sin exclusi\u00f3n": 0.005070565368038536,
+   "3CosMul con exclusi\u00f3n": 0.3841798360517198,
+   "3CosMul sin exclusi\u00f3n": 0.05383250232400913
+  },
+  "por_categoria": [
+   {
+    "category": "capital-common-countries",
+    "n_total": 506,
+    "n_eval": 380,
+    "coverage": 0.7509881422924901,
+    "acc_add": 0.3447368421052632,
+    "acc_mul": 0.3973684210526316
+   },
+   {
+    "category": "capital-world",
+    "n_total": 4524,
+    "n_eval": 1046,
+    "coverage": 0.23121131741821396,
+    "acc_add": 0.2084130019120459,
+    "acc_mul": 0.2198852772466539
+   },
+   {
+    "category": "currency",
+    "n_total": 866,
+    "n_eval": 54,
+    "coverage": 0.06235565819861432,
+    "acc_add": 0.037037037037037035,
+    "acc_mul": 0.037037037037037035
+   },
+   {
+    "category": "city-in-state",
+    "n_total": 2467,
+    "n_eval": 1750,
+    "coverage": 0.7093635995135793,
+    "acc_add": 0.16457142857142856,
+    "acc_mul": 0.17142857142857143
+   },
+   {
+    "category": "family",
+    "n_total": 506,
+    "n_eval": 342,
+    "coverage": 0.6758893280632411,
+    "acc_add": 0.6052631578947368,
+    "acc_mul": 0.5935672514619883
+   },
+   {
+    "category": "gram1-adjective-to-adverb",
+    "n_total": 992,
+    "n_eval": 812,
+    "coverage": 0.8185483870967742,
+    "acc_add": 0.09359605911330049,
+    "acc_mul": 0.0874384236453202
+   },
+   {
+    "category": "gram2-opposite",
+    "n_total": 812,
+    "n_eval": 272,
+    "coverage": 0.33497536945812806,
+    "acc_add": 0.13970588235294118,
+    "acc_mul": 0.1323529411764706
+   },
+   {
+    "category": "gram3-comparative",
+    "n_total": 1332,
+    "n_eval": 1332,
+    "coverage": 1.0,
+    "acc_add": 0.5653153153153153,
+    "acc_mul": 0.5795795795795796
+   },
+   {
+    "category": "gram4-superlative",
+    "n_total": 1122,
+    "n_eval": 702,
+    "coverage": 0.6256684491978609,
+    "acc_add": 0.2720797720797721,
+    "acc_mul": 0.29914529914529914
+   },
+   {
+    "category": "gram5-present-participle",
+    "n_total": 1056,
+    "n_eval": 870,
+    "coverage": 0.8238636363636364,
+    "acc_add": 0.40229885057471265,
+    "acc_mul": 0.38620689655172413
+   },
+   {
+    "category": "gram6-nationality-adjective",
+    "n_total": 1599,
+    "n_eval": 1299,
+    "coverage": 0.8123827392120075,
+    "acc_add": 0.7536566589684373,
+    "acc_mul": 0.7536566589684373
+   },
+   {
+    "category": "gram7-past-tense",
+    "n_total": 1560,
+    "n_eval": 1332,
+    "coverage": 0.8538461538461538,
+    "acc_add": 0.5315315315315315,
+    "acc_mul": 0.521021021021021
+   },
+   {
+    "category": "gram8-plural",
+    "n_total": 1332,
+    "n_eval": 992,
+    "coverage": 0.7447447447447447,
+    "acc_add": 0.37399193548387094,
+    "acc_mul": 0.34274193548387094
+   },
+   {
+    "category": "gram9-plural-verbs",
+    "n_total": 870,
+    "n_eval": 650,
+    "coverage": 0.7471264367816092,
+    "acc_add": 0.3553846153846154,
+    "acc_mul": 0.3415384615384615
+   }
+  ],
+  "paralelismo_medio": 0.17417684197425842,
+  "paralelismo_azar": 0.0009726291713637433,
+  "paralelismo_por_categoria": [
+   {
+    "category": "capital-common-countries",
+    "n_pairs": 20,
+    "mean_cos_pairs": 0.2385251224040985,
+    "mean_cos_questions": 0.23852510750293732,
+    "random_baseline": -0.016986636444926262
+   },
+   {
+    "category": "capital-world",
+    "n_pairs": 56,
+    "mean_cos_pairs": 0.20947837829589844,
+    "mean_cos_questions": 0.2087172120809555,
+    "random_baseline": -0.0006979223689995706
+   },
+   {
+    "category": "currency",
+    "n_pairs": 8,
+    "mean_cos_pairs": 0.18572020530700684,
+    "mean_cos_questions": 0.17045222222805023,
+    "random_baseline": 0.010324835777282715
+   },
+   {
+    "category": "city-in-state",
+    "n_pairs": 57,
+    "mean_cos_pairs": 0.1712450534105301,
+    "mean_cos_questions": 0.14920420944690704,
+    "random_baseline": -0.0019873150158673525
+   },
+   {
+    "category": "family",
+    "n_pairs": 19,
+    "mean_cos_pairs": 0.16782158613204956,
+    "mean_cos_questions": 0.16782160103321075,
+    "random_baseline": 0.018540717661380768
+   },
+   {
+    "category": "gram1-adjective-to-adverb",
+    "n_pairs": 29,
+    "mean_cos_pairs": 0.08428411185741425,
+    "mean_cos_questions": 0.08428411930799484,
+    "random_baseline": -0.003958185203373432
+   },
+   {
+    "category": "gram2-opposite",
+    "n_pairs": 17,
+    "mean_cos_pairs": 0.08825187385082245,
+    "mean_cos_questions": 0.08825188875198364,
+    "random_baseline": 0.019828831776976585
+   },
+   {
+    "category": "gram3-comparative",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.21974462270736694,
+    "mean_cos_questions": 0.21974462270736694,
+    "random_baseline": -0.004998669493943453
+   },
+   {
+    "category": "gram4-superlative",
+    "n_pairs": 27,
+    "mean_cos_pairs": 0.20084846019744873,
+    "mean_cos_questions": 0.20084844529628754,
+    "random_baseline": -0.007799591403454542
+   },
+   {
+    "category": "gram5-present-participle",
+    "n_pairs": 30,
+    "mean_cos_pairs": 0.11596985161304474,
+    "mean_cos_questions": 0.11596985906362534,
+    "random_baseline": 0.007551403716206551
+   },
+   {
+    "category": "gram6-nationality-adjective",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.3464900851249695,
+    "mean_cos_questions": 0.3461940884590149,
+    "random_baseline": -0.005786975845694542
+   },
+   {
+    "category": "gram7-past-tense",
+    "n_pairs": 37,
+    "mean_cos_pairs": 0.14137844741344452,
+    "mean_cos_questions": 0.14137841761112213,
+    "random_baseline": 0.0012865610187873244
+   },
+   {
+    "category": "gram8-plural",
+    "n_pairs": 32,
+    "mean_cos_pairs": 0.11187322437763214,
+    "mean_cos_questions": 0.11187321692705154,
+    "random_baseline": -0.003722067689523101
+   },
+   {
+    "category": "gram9-plural-verbs",
+    "n_pairs": 26,
+    "mean_cos_pairs": 0.15684476494789124,
+    "mean_cos_questions": 0.15684475004673004,
+    "random_baseline": 0.002021821914240718
+   }
+  ],
+  "tsne_pureza": 0.8583333333333334,
+  "tsne_silueta": 0.17010238766670227,
+  "propias_top1": 19,
+  "propias_total": 23
+ },
+ "gensim (d100, 10 ep)": {
+  "procedencia": {
+   "modelo": "Word2Vec de gensim (skip-gram, negative sampling)",
+   "run": "gensim_d100_e10",
+   "matriz": "cache/gensim_d100_e10.kv",
+   "config": {
+    "vector_size": 100,
+    "epochs": 10,
+    "window": 5,
+    "negative": 5,
+    "sample": 0.0001,
+    "alpha": 0.025,
+    "min_alpha": 0.0001,
+    "min_count": 1,
+    "sg": 1,
+    "seed": 42
+   }
+  },
   "vocab": 109644,
   "dim": 100,
   "vocab_compartido": 30000,
@@ -244,6 +1048,11 @@
   "propias_total": 23
  },
  "GloVe-100": {
+  "procedencia": {
+   "modelo": "GloVe preentrenado (glove-wiki-gigaword-100)",
+   "run": "glove-wiki-gigaword-100",
+   "config": "ver results/glove_reportado.json"
+  },
   "vocab": 400000,
   "dim": 100,
   "vocab_compartido": 30000,
@@ -488,7 +1297,24 @@
   "propias_total": 23
  },
  "_meta": {
-  "mejor_modelo_propio": "gensim",
-  "sgns_incluido": false
+  "mejor_modelo_propio": "SGNS (d300)",
+  "modelos_principales": [
+   "SGNS (d300)",
+   "gensim (d300, 3 ep)",
+   "GloVe-100"
+  ],
+  "modelos": [
+   "SGNS (d300)",
+   "SGNS (d100)",
+   "gensim (d300, 3 ep)",
+   "gensim (d100, 10 ep)",
+   "GloVe-100"
+  ],
+  "sgns_incluidos": [
+   "SGNS (d300)",
+   "SGNS (d100)"
+  ],
+  "vocab_compartido": 30000,
+  "nota": "analog\u00edas con vocabulario compartido de 30,000 palabras; SimLex-999 est\u00e1 en results/clasificacion_B.json"
  }
 }

@@ -45,7 +45,7 @@ for nombre, (run, tipo) in MODELOS.items():
         cfg = log.get("config", {})
         fila.update(tokens_corpus=log.get("n_tokens"), epochs=cfg.get("epochs"), ventana=cfg.get("window"), negativos=cfg.get("neg"),
                     submuestreo_t=cfg.get("subsample_t"), optimizador=f"SparseAdam lr={cfg.get('lr')} (decae a {cfg.get('min_lr_frac')}x), batch {cfg.get('batch_size')}",
-                    tiempo_entrenamiento_s=log.get("train_time_s"), hardware=f"dispositivo: {log.get('device')} (modelo de CPU/RAM: pendiente de reportar por A)",
+                    tiempo_entrenamiento_s=log.get("train_time_s"), hardware="Apple M2 Pro, 10 núcleos físicos, 16 GiB RAM; entrenamiento en CPU",
                     memoria_pico_gpu_mb=None, fuente_entrenamiento=f"cache/runs/{run}.json")
     elif tipo == "gensim":
         log = cargar(R / f"{run}.json")

@@ -83,6 +83,12 @@ class Encoded:
     def __len__(self):
         return len(self.docs)
 
+    def subset(self, idx):
+        """Mismo vocabulario, solo los documentos `idx` (para entrenar con una fracción de los datos)."""
+        new = object.__new__(Encoded)
+        new.docs, new.labels = [self.docs[i] for i in idx], self.labels[np.asarray(idx)]
+        return new
+
     def batch(self, idx):
         parts = [self.docs[i] for i in idx]
         lens = np.fromiter((len(p) for p in parts), dtype=np.int64, count=len(parts))

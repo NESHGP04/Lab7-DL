@@ -4,3 +4,7 @@ cache/runs/d300_c100_W_in.npy
 cache/runs/d300_c100_W_out.npy
 results/clasificacion_sgns/sgns_congelado.pt
 results/clasificacion_sgns/sgns_finetuning_mejor.pt
+
+cache/train_ids.npy
+cache/gensim_*.kv*
+results/*_W_in.npy

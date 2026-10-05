@@ -119,13 +119,20 @@ class EmbeddingSpace:
         return kv
 
 
-def save_kv(space_or_E, itos_or_path, path=None):
-    """Guarda vectores en formato gensim .kv (lo pide el enunciado). save_kv(space, path) o save_kv(E, itos, path)."""
+def save_kv(space_or_E, itos_or_path, path=None, dtype=None):
+    """
+    Guarda vectores en formato gensim .kv (lo pide el enunciado). save_kv(space, path) o save_kv(E, itos, path).
+    dtype=np.float16 reduce el archivo a la mitad (útil por el límite de 100 MB de GitHub; no cambia las métricas).
+    """
     if path is None:
         space, path = space_or_E, itos_or_path
     else:
         space = EmbeddingSpace.from_itos(space_or_E, itos_or_path)
-    space.to_keyed_vectors().save(str(path))
+    kv = space.to_keyed_vectors()
+    if dtype is not None:
+        kv.vectors = kv.vectors.astype(dtype)
+    Path(path).parent.mkdir(parents=True, exist_ok=True)
+    kv.save(str(path))
 
 
 def load_kv(path, name: str = ""):
@@ -133,19 +140,41 @@ def load_kv(path, name: str = ""):
     return EmbeddingSpace.from_keyed_vectors(KeyedVectors.load(str(path)), name=name)
 
 
-def load_sgns(cache="cache", run=None, name: str = "SGNS"):
+def load_sgns(cache="cache", run=None, name: str = "SGNS", verbose: bool = True):
     """
-    SGNS propio de A: cache/sgns_best.kv, o el run guardado por sgns.save_run (cache/runs/<run>_W_in.npy,
-    filas alineadas con cache/vocab.json). Devuelve None (con aviso) si todavía no existe.
+    SGNS propio de A. Busca la matriz W_in guardada por sgns.save_run (<run>_W_in.npy, filas alineadas con
+    cache/vocab.json) en cache/runs/, results/ y cache/; si `run` es None usa cache/sgns_best.kv.
+    Devuelve None (con aviso) si todavía no existe.
     """
     cache = Path(cache)
-    if (cache / "sgns_best.kv").exists():
+    if run is None and (cache / "sgns_best.kv").exists():
         return load_kv(cache / "sgns_best.kv", name=name)
-    if run and (cache / "runs" / f"{run}_W_in.npy").exists():
-        itos = json.load(open(cache / "vocab.json"))["itos"]
-        return EmbeddingSpace.from_itos(np.load(cache / "runs" / f"{run}_W_in.npy"), itos, name=name)
-    print("AVISO: no hay SGNS propio guardado todavía; se continúa sin él.")
+    for d in (cache / "runs", cache.parent / "results", cache):
+        f = d / f"{run}_W_in.npy"
+        if run and f.exists():
+            itos = json.load(open(cache / "vocab.json"))["itos"]
+            return EmbeddingSpace.from_itos(np.load(f), itos, name=name)
+    if verbose:
+        print(f"AVISO: no se encontró el SGNS '{run}' ({name}); se continúa sin él.")
     return None
+
+
+def hardware_info() -> dict:
+    """Máquina donde corre el código (para reportar hardware en la tabla comparativa)."""
+    import platform
+    import subprocess
+    info = dict(platform=platform.platform(), machine=platform.machine(), cpu_count=os.cpu_count())
+    try:
+        info["cpu"] = subprocess.run(["sysctl", "-n", "machdep.cpu.brand_string"], capture_output=True, text=True).stdout.strip()
+        info["ram_gb"] = round(int(subprocess.run(["sysctl", "-n", "hw.memsize"], capture_output=True, text=True).stdout) / 2**30)
+    except Exception:
+        pass
+    try:
+        import torch
+        info["gpu"] = "CUDA" if torch.cuda.is_available() else "ninguna (CPU)"
+    except Exception:
+        pass
+    return info
 
 
 def shared_vocabulary(spaces, n: int = 30000, order_by=None):

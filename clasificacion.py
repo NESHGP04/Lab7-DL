@@ -164,6 +164,8 @@ def train_classifier(train: Encoded, val: Encoded, vocab_size: int, dim: int, pr
     """
     torch.manual_seed(seed)
     rng = np.random.default_rng(seed)
+    if pretrained is not None:
+        dim = pretrained.shape[1]            # la dimensión la fija la matriz (SGNS de 300, GloVe de 100, ...)
     model = BagMLP(vocab_size, dim, pretrained=pretrained, freeze=freeze)
     opt_mlp = torch.optim.Adam(model.mlp.parameters(), lr=lr)
     opt_emb = None if freeze else torch.optim.SparseAdam([model.emb.weight], lr=emb_lr or lr)
